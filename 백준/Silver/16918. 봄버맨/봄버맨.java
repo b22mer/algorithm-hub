@@ -28,7 +28,7 @@ public class Main {
 		C=Integer.parseInt(st[1]);
 		N=Integer.parseInt(st[2]);
 		
-		map=new char[R][C];
+		map=new char[R][C]; // 맵 입력을 받으면서 초기 폭탄이 설치된 위치를 리스트에 저장을 한다.
 		for(int i=0; i<R; i++) {
 			String str=br.readLine();
 			for(int j=0; j<C; j++) {
@@ -37,17 +37,19 @@ public class Main {
 			}
 		}
 		
-		while(true) {
+		while(true) { // 시간 별로 구간을 설정하여 진행을 한다.
 			
 			if (cnt==N) break; // 1초일때, 
-			cnt++; 	
+			cnt++; 	// cnt 추가, 오리지날 폭탄외에 빈곳에 폭탄을 채워주는 부분
 			for(int i=0; i<R; i++) {
 				for(int j=0; j<C; j++) {
 					if(map[i][j]!='O') map[i][j]='O';
 				}
 			}
+			
+			
 			if (cnt==N) break; // 2초일때
-			cnt++;
+			cnt++; // cnt 추가, 오리지날 폭탄이 인접사방을 폭발 시키는 구간
 			for(int i=0; i<pos.size(); i++) {
 				
 				for(int j=0; j<4; j++) {
@@ -60,13 +62,18 @@ public class Main {
 				}
 			}
 			pos.clear();
-			if (cnt==N) break; //3초일때
+			
+			
+			if (cnt==N) break; //3초일때, 여기서 오리지날 폭탄이 교체되는 구간이기에 폭탄 포지션 리스트를 초기화하고 
+								// 폭탄 리스트를 다시만든다.
 			for(int i=0; i<R; i++) {
 				for(int j=0; j<C; j++) {
 					if(map[i][j]=='O') pos.add(new int[] {i,j});
 				}
 			}
 		}
+		
+		
 		
 		for(int i=0; i<R; i++) {
 			for(int j=0; j<C; j++) {
